@@ -3,7 +3,7 @@ import Todo from "../Todo";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
-import { addToDo } from "./todoSlice";
+import { addNewTodo, addToDo, addToDos } from "./todoSlice";
 import { useSelector } from "react-redux";
 import { todoRemainingSelector } from "../../redux/selectors";
 
@@ -19,16 +19,26 @@ export default function TodoList() {
   const dispatch = useDispatch();
 
   const handleAddButtonClick = () => {
-    const todo = {
-      id: uuidv4(),
-      name: todoName,
-      priority: priority,
-      completed: false,
-    };
-    const action = addToDo(todo);
-    dispatch(action);
-    setTodoName("");
-    setPriority("Medium");
+    // const todo = {
+    //   id: uuidv4(),
+    //   name: todoName,
+    //   priority: priority,
+    //   completed: false,
+    // };
+    // const action = addToDo(todo);
+    // dispatch(action);
+    // setTodoName("");
+    // setPriority("Medium");
+
+    // dispatch(
+    //   addToDos({
+    //     id: uuidv4(),
+    //     name: todoName,
+    //     priority: priority,
+    //     completed: false,
+    //   })
+    // );
+
     // dispatch(
     //   addToDo({
     //     id: uuidv4(),
@@ -37,6 +47,15 @@ export default function TodoList() {
     //     completed: false,
     //   })
     // );
+
+    dispatch(
+      addNewTodo({
+        id: uuidv4(),
+        name: todoName,
+        priority: priority,
+        completed: false,
+      })
+    );
   };
 
   const handleInputChange = (e) => {
@@ -59,7 +78,7 @@ export default function TodoList() {
               key={todo.id}
               id={todo.id}
               name={todo.name}
-              prioriry={todo.priorities}
+              prioriry={todo.priority}
               completed={todo.completed}
               // todo={todo}
             />
